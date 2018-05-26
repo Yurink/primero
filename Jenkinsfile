@@ -1,24 +1,22 @@
 pipeline {
     agent any
     stages { 
-        stage('Push') { 
+        stage('Build') { 
             steps { 
-                sh 'docker push czubeldia/app-jenkins1' 
+                sh 'docker build -t app .' 
             }  
-        } 
-    } 
-        post {  
-            always { 
-                echo 'Siempre' // Ejecuta siempre
-                }
-            success {
-                echo 'Todo Bien' // Ejecuta si todo bien
-                }
-            unstable {
-                echo 'Inestable' // Ejecuta si inestable
-                }
-            failure { 
-                echo 'Fallo' // Ejecuta si falla
-                }
         }
+		stage('Test') {
+			steps{
+				echo 'TEST'
+			}
+		}
+		stage('Deploy') {
+			steps{
+				echo 'DEPLOY'
+			}
+		}
+		
+    }
+
 }
